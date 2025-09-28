@@ -39,7 +39,7 @@ class CustomException(Exception):
     """
 
     def __init__(self, error:Exception):
-        super().__init__(str(Exception))
+        super().__init__(str(error))
         self.details=format_exception(error)
     
     def __str__(self):
