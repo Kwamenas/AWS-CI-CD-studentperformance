@@ -6,4 +6,5 @@ ipykernel
 plotly
 xgboost
 catboost
+dill
 -e .
