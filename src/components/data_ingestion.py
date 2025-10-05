@@ -2,9 +2,10 @@ from src.exception import CustomException ##this gives us the custome exception
 from src.logger import logging ###here we bring in the logger 
 import pandas as pd
 from pathlib import Path
-
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransformation,DataTransformationConfig
+from src.components.model_trainer import ModelTrainerConfig,ModelTrainer
 
 #defining the class variables
 #path for data storage
@@ -82,6 +83,20 @@ if __name__=="__main__":
 
         train_set,valid_set,test_set=ingestion.data_split(df)
         print("Data sucessfully split and saved")
+
+        transformer=DataTransformation(filename="train.csv")
+        train_path="artifacts/train.csv"
+        valid_path="artifacts/valid.csv"
+        test_path="artifacts/test.csv"
+
+        train_trans,valid_trans,test_trans,object_path=transformer.initiate_data_transformation(
+            train_path,valid_path,test_path
+        )
+
+        model_trainer=ModelTrainer()
+        print(model_trainer.train_model(train_trans,valid_trans,test_trans))
+
+
     except Exception as e:
         print("Error",e)
             
