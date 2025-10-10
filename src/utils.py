@@ -1,13 +1,12 @@
 import os
 import sys
-import pandas as pd
 import numpy as np
 from pathlib import Path
 import pickle as pk
-import dill
 from sklearn.metrics import r2_score
 import pandas as pd 
 from pandas import DataFrame
+from sklearn.model_selection import RandomizedSearchCV
 
 from src.exception import CustomException
 
@@ -22,12 +21,18 @@ def save_object(file_path,obj):
     except Exception as e:
         raise CustomException(e)
 
-def train_evaluate_model(X_train,y_train,X_valid,y_valid,X_test,y_test,models):
+def train_evaluate_model(X_train,y_train,X_valid,y_valid,X_test,y_test,models,params,n_iter=2,cv=3):
     try:
         model_dict={}
-        for i in range(len(list(models))):
-            model=list(models.values())[i]
-            model_name=list(models.keys())[i]
+        ##for i in range(len(list(models))):
+          ##  model=list(models.values())[i]
+            ##model_name=list(models.keys())[i]
+        for model_name,model in models.items():
+            rsc=RandomizedSearchCV(estimator=model,
+                                   param_distributions=params[model_name],n_iter=n_iter
+                                   ,cv=cv,verbose=2,n_jobs=-1)
+            rsc.fit(X_train,y_train)
+            model.set_params(**rsc.best_params_)
             model.fit(X_train,y_train)
 
     #make predictions

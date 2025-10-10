@@ -35,14 +35,40 @@ class ModelTrainer:
                 'LinearRegression':LinearRegression(),
                 'RDF':RandomForestRegressor(),
                 'ADABOOST':AdaBoostRegressor(),
-                'SVR':SVR(),
                 'CatBoostRegressor':CatBoostRegressor(verbose=0),
-                'KNB':KNeighborsRegressor(),
                 'DTR':DecisionTreeRegressor()
                 }
+            
+            params={
+                "XGBOOSTR":{
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "LinearRegression":{},
+                "RDF":{
+                    #'criterion':['squared_error', 'absolute_error', 'friedman_mse', 'poisson'],
+                    'max_features':['sqrt', 'log2'],
+                    'n_estimators':[8,16,32,64,128,256]
+                },
+                "ADABOOST":{
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators':[8,16,32,64,128,256]
+                },
+                "CatBoostRegressor":{
+                    'depth': [6,8,10],
+                    'learning_rate':[.1,.01,.05,.001],
+                    'iterations':[30, 50, 100]
+
+                },
+                "DTR":{
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson']
+                }
+
+
+            }
             df=train_evaluate_model(X_train=X_train,y_train=y_train,X_valid=X_valid,
                                  y_valid=y_valid,
-                                 X_test=X_test,y_test=y_test,models=models)
+                                 X_test=X_test,y_test=y_test,models=models,params=params)
             
             #best model
             best_model_name=df.index[0]
