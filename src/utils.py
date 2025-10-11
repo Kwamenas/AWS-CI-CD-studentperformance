@@ -54,3 +54,10 @@ def train_evaluate_model(X_train,y_train,X_valid,y_valid,X_test,y_test,models,pa
     except Exception as e:
         raise CustomException(e)
 
+def load_object(file_path):
+    try:
+        with open(file_path,"rb") as file_obj:
+            return pk.load(file_obj)
+
+    except Exception as e:
+        raise CustomException(e)

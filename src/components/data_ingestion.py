@@ -73,30 +73,30 @@ class DataIngestion:
                 raise CustomException(e)
 
 
-if __name__=="__main__":
-    try:
-        ingestion=DataIngestion("notebook")
-        df=ingestion.initiate_data_ingestion()
+##if __name__=="__main__":
+##    try:
+ ##       ingestion=DataIngestion("notebook")
+ ##       df=ingestion.initiate_data_ingestion()
 
-        print("Raw data preview:")
-        print(df.head())
+   ##     print("Raw data preview:")
+     ##   print(df.head())
 
-        train_set,valid_set,test_set=ingestion.data_split(df)
-        print("Data sucessfully split and saved")
+       ## train_set,valid_set,test_set=ingestion.data_split(df)
+       ## print("Data sucessfully split and saved")
 
-        transformer=DataTransformation(filename="train.csv")
-        train_path="artifacts/train.csv"
-        valid_path="artifacts/valid.csv"
-        test_path="artifacts/test.csv"
+        ##transformer=DataTransformation(filename="train.csv")
+        ##train_path="artifacts/train.csv"
+        ##valid_path="artifacts/valid.csv"
+        ##test_path="artifacts/test.csv"
 
-        train_trans,valid_trans,test_trans,object_path=transformer.initiate_data_transformation(
-            train_path,valid_path,test_path
-        )
+        ##train_trans,valid_trans,test_trans,object_path=transformer.initiate_data_transformation(
+          ##  train_path,valid_path,test_path
+        ##)
 
-        model_trainer=ModelTrainer()
-        print(model_trainer.train_model(train_trans,valid_trans,test_trans))
+        ##model_trainer=ModelTrainer()
+        ##print(model_trainer.train_model(train_trans,valid_trans,test_trans))
 
 
-    except Exception as e:
-        print("Error",e)
+    ##except Exception as e:
+      ##  print("Error",e)
             
