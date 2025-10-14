@@ -1,11 +1,10 @@
 pandas
 numpy
 seaborn
+matplotlib
 scikit-learn
-ipykernel
-plotly
-xgboost
 catboost
-dill
+xgboost
 Flask
--e .
+
+#-e .
